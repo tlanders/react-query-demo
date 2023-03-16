@@ -1,17 +1,11 @@
 import React from "react";
 import {useQuery} from "react-query";
-import axios from "axios";
 import {getPeople} from "../api/peopleApi";
 import {Link} from "react-router-dom";
-// import peopleApi from "../api/peopleApi";
 
 const PeopleHome = () => {
     console.log('PeopleHome');
-    // const queryClient = useQueryClient();
     const { isLoading, isError, data, error } = useQuery('people', getPeople);
-
-    console.log('isLoading:', isLoading);
-    console.log('isError:', isError);
 
     if(isLoading) {
         return (<div><p>Loading...</p></div>);

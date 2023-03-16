@@ -1,26 +1,23 @@
 import React from "react";
 import {useQuery} from "react-query";
-import axios from "axios";
-import {getPeople, getPerson} from "../api/peopleApi";
-import {Link, useParams} from "react-router-dom";
+import {getPerson} from "../api/peopleApi";
+import {useParams} from "react-router-dom";
 
 const PersonView = () => {
     const {personId} = useParams();
     console.log('PersonView - id:', personId);
     const { isLoading, isError, data, error } = useQuery('getPerson', getPerson(personId));
-    const person = data;
-
-    console.log('isLoading:', isLoading);
-    console.log('isError:', isError);
 
     if(isLoading) {
         return (<div><p>Loading...</p></div>);
     }
     if (isError) {
-        return <div><p>Error: {error.message}</p></div>
+        console.log('PersonView - get person error:', error);
+        return (<div><p>PersonView error: {error.message}</p></div>);
     }
 
-    console.log('data:', person);
+    const person = data;
+    console.log('PersonView data:', person);
 
     return (
         <>
