@@ -1,19 +1,14 @@
 import React from "react";
 import {useQuery} from "react-query";
 import axios from "axios";
+import {getPeople} from "../api/peopleApi";
+import {Link} from "react-router-dom";
 // import peopleApi from "../api/peopleApi";
 
 const PeopleHome = () => {
     console.log('PeopleHome');
     // const queryClient = useQueryClient();
-    const { isLoading, isError, data, error } = useQuery('people', () => {
-        return axios.get('http://localhost:3001/v1/people')
-            .then((res) => {
-                console.log('GET people response:', res);
-                return res.data;
-            })
-            .catch((err) => err);
-    });
+    const { isLoading, isError, data, error } = useQuery('people', getPeople);
 
     console.log('isLoading:', isLoading);
     console.log('isError:', isError);
@@ -35,7 +30,7 @@ const PeopleHome = () => {
                     // fakePeople.map(p =>
                     data.map(p =>
                         <p key={`person-${p.id}`}>
-                            {p.name}<br/>
+                            <Link to={`/people/${p.id}`}>{p.name}</Link><br/>
                             {p.phone}<br/>
                             {p.email}
                         </p>
